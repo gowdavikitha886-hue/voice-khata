@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Voice Khata</title>
+<link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Mukta:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#e9efe6;--card:#fbfdf9;--ink:#14213d;--mut:#5b6678;--line:#c9d6e8;--brand:#2740a6;--acc:#f2a900;--bad:#b42318;--good:#18794e;color-scheme:light dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10151f;--card:#182030;--ink:#eef1f8;--mut:#9aa6bd;--line:#2b3750;--brand:#8fa6ff;--acc:#f5b83d;--bad:#ff8f84;--good:#5fd39a}}
+:root[data-theme="dark"]{--bg:#10151f;--card:#182030;--ink:#eef1f8;--mut:#9aa6bd;--line:#2b3750;--brand:#8fa6ff;--acc:#f5b83d;--bad:#ff8f84;--good:#5fd39a}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 Mukta,system-ui,"Noto Sans",sans-serif}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 16px;background:var(--brand);color:#fff;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Yatra One",Mukta,serif;font-size:22px;line-height:1.1}
+.brand small{display:block;font:400 13px Mukta,sans-serif;opacity:.85}
+.logo{width:40px;height:40px;border-radius:8px;background:var(--acc);color:#14213d;display:grid;place-items:center;font-size:20px}
+.top select,.ghost{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.4);color:inherit;border-radius:8px;padding:6px 10px;cursor:pointer}
+.top select option{color:#14213d}
+.wrap{max-width:1100px;margin:0 auto;padding:14px}
+.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}
+@media(max-width:820px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
+.narrow{max-width:420px;margin:30px auto}
+h1,h2{font-family:"Yatra One",Mukta,serif;font-weight:400;margin:0 0 8px}
+h1{font-size:30px}h2{font-size:20px}
+.mut{color:var(--mut)}.sm{font-size:14px}
+input[type=text],input[type=password]{width:100%;padding:11px 12px;margin:6px 0;border:1px solid var(--line);border-radius:8px;background:transparent}
+.btn{background:var(--brand);color:#fff;border:0;border-radius:8px;padding:11px 16px;font-weight:700;cursor:pointer}
+.btn:disabled,.sm:disabled{opacity:.4;cursor:not-allowed}
+.ai{background:color-mix(in srgb,var(--acc) 22%,transparent);border-radius:8px;padding:8px 12px;font-size:14px;margin-bottom:12px}
+.microw{display:flex;gap:14px;align-items:center;margin-bottom:12px}
+.mic{width:84px;height:84px;border-radius:50%;border:0;background:var(--acc);font-size:34px;cursor:pointer;flex:none;box-shadow:0 0 0 6px color-mix(in srgb,var(--acc) 30%,transparent)}
+.mic.on{background:var(--bad);color:#fff;animation:p 1.2s infinite}
+@keyframes p{50%{box-shadow:0 0 0 16px color-mix(in srgb,var(--bad) 18%,transparent)}}
+@media(prefers-reduced-motion:reduce){.mic.on{animation:none}}
+#st{font-weight:700}
+#f{display:flex;gap:8px}#f input{margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.chip{border:1px solid var(--line);background:transparent;border-radius:99px;padding:4px 12px;font-size:14px;cursor:pointer}
+.chip:hover{border-color:var(--brand)}
+#log{max-height:340px;overflow:auto;display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.b{padding:8px 12px;border-radius:10px;max-width:92%;overflow-wrap:anywhere}
+.b.u{align-self:flex-end;background:var(--brand);color:#fff}
+.b.a{align-self:flex-start;background:color-mix(in srgb,var(--brand) 10%,transparent)}
+.b i{display:block;font-size:12px;opacity:.7;font-style:normal}
+.stats{display:flex;gap:10px;margin-bottom:10px}
+.stat{flex:1;border:1px solid var(--line);border-radius:10px;padding:8px 12px}
+.stat b{font-family:"Yatra One",serif;font-weight:400;font-size:26px;display:block}
+.ledger{border-left:3px solid var(--bad);background:repeating-linear-gradient(transparent 0 51px,var(--line) 51px 52px)}
+.row{display:grid;grid-template-columns:1fr auto;gap:2px 10px;align-items:center;min-height:52px;padding:2px 8px}
+.rn{grid-row:span 2}.amt{font-weight:700;text-align:right;color:var(--bad)}
+.row label{font-size:13px;color:var(--mut)}
+.bar{height:5px;background:var(--line);border-radius:3px;margin-top:4px}.bar i{display:block;height:100%;background:var(--bad);border-radius:3px}
+.sm{border-radius:6px;padding:2px 10px;cursor:pointer}
+.row .sm{border:1px solid var(--line);background:transparent;color:var(--brand)}
+ul{list-style:none;margin:0;padding:0}li{padding:4px 0;border-bottom:1px dashed var(--line);font-size:14px}
+li .c{color:var(--bad);font-weight:700}li .p{color:var(--good);font-weight:700}
+#msg{color:var(--bad);min-height:24px}
+.erase{background:transparent;border:1px solid var(--bad);color:var(--bad);border-radius:8px;padding:6px 12px;cursor:pointer;margin-top:10px}
+</style>
+</head>
+<body>
+<header class="top">
+ <div class="brand"><span class="logo">खा</span><div>Voice Khata<small>बोलो, खाता लिखो</small></div></div>
+ <div><select id="lang" aria-label="Language"></select> <span id="who" hidden></span> <button id="out" class="ghost" hidden>Logout</button></div>
+</header>
+<main class="wrap">
+<section id="login" class="card narrow">
+ <h1>Namaste 🙏</h1>
+ <p class="mut">Log in to your shop’s khata, or pick a new name and PIN to start one.</p>
+ <form id="lf"><input id="u" type="text" placeholder="Shop or owner name" autocomplete="username"><input id="p" type="password" inputmode="numeric" placeholder="PIN (4+ digits)" autocomplete="current-password">
+ <div id="msg" role="alert"></div><button class="btn">Log in / Create khata</button></form>
+ <p class="sm mut">A new khata starts with synthetic sample customers. Your ledger is encrypted with your PIN and stays on this device.</p>
+</section>
+
+<section id="app" class="grid" hidden>
+ <div>
+  <div class="card">
+   <div class="ai">🤖 You’re talking to an AI assistant. Sample data only; stored encrypted on this device.</div>
+   <div class="microw"><button id="mic" class="mic" aria-label="Tap to talk">🎙</button><div><div id="st">Tap to talk</div><div id="interim" class="mut"></div></div></div>
+   <form id="f"><input id="q" type="text" placeholder="Type or speak: Ramesh ka 340 udhaar, kal 200 diya tha" autocomplete="off" aria-label="Type your entry or question"><button class="btn">Send</button></form>
+   <div class="chips" id="chips"></div>
+   <label class="sm mut"><input type="checkbox" id="tts" checked> Speak replies aloud</label>
+   <div id="log" aria-live="polite"></div>
+  </div>
+ </div>
+ <div>
+  <div class="card">
+   <h2>Udhaar khata</h2>
+   <div class="stats"><div class="stat"><b id="tot">₹0</b><span class="sm mut">pending in total</span></div><div class="stat"><b id="cnt">0</b><span class="sm mut">customers owe</span></div></div>
+   <div id="list" class="ledger"></div>
+   <p class="sm mut">Reminders are polite and only for customers who opted in.</p>
+  </div>
+  <div class="card"><h2>Recent entries</h2><ul id="recent"></ul><button id="erase" class="erase">Erase all my data</button></div>
+ </div>
+</section>
+</main>
+
+<script>
+const $=s=>document.querySelector(s),enc=new TextEncoder(),dec=new TextDecoder();
+const LS=(k,v)=>{try{return v===undefined?localStorage.getItem(k):localStorage.setItem(k,v)}catch(e){return null}};
+const LANGS=[['en-IN','English'],['hi-IN','हिन्दी'],['kn-IN','ಕನ್ನಡ'],['ta-IN','தமிழ்'],['te-IN','తెలుగు'],['ml-IN','മലയാളം'],['mr-IN','मराठी'],['bn-IN','বাংলা'],['gu-IN','ગુજરાતી'],['pa-IN','ਪੰਜਾਬੀ'],['or-IN','ଓଡ଼ିଆ'],['ur-IN','اردو'],['as-IN','অসমীয়া'],['ne-NP','नेपाली'],['en-US','English (US)'],['es-ES','Español'],['fr-FR','Français'],['de-DE','Deutsch'],['pt-BR','Português'],['ru-RU','Русский'],['ar-SA','العربية'],['zh-CN','中文'],['ja-JP','日本語'],['ko-KR','한국어'],['id-ID','Bahasa Indonesia'],['tr-TR','Türkçe'],['th-TH','ไทย'],['vi-VN','Tiếng Việt'],['it-IT','Italiano']];
+$('#lang').innerHTML='<option value="auto">🌐 Auto-detect</option>'+LANGS.map(l=>`<option value="${l[0]}">${l[1]}</option>`).join('');
+const T={
+en:{ai:"Hello! I am an AI voice assistant for your khata. Say an entry or ask for a balance.",cr:"{n}: ₹{a} credit added{d}. Total due ₹{t}.",pay:"{n}: ₹{a} payment received{d}. Total due ₹{t}.",tot:"{n} owes ₹{t}.",ask:"Which one: {opts}?",fix:"Corrected to ₹{a} for {n}. Total due ₹{t}.",day:"Credit given today: ₹{a}.",all:"Total pending ₹{a} across {c} customers.",unk:"Sorry, I didn’t catch that. Say a name, an amount, and credit or payment.",tip:"Tips to sell {p}: keep it at eye level near the counter, offer small packs or combos, tell regular customers about it by name, and check slow stock weekly.",rem:"Hello {n}! A friendly reminder from our shop: ₹{t} is pending. Please pay whenever convenient. Thank you!"},
+hi:{ai:"नमस्ते! मैं आपकी खाता बही का AI वॉइस असिस्टेंट हूँ। एंट्री बोलिए या बकाया पूछिए।",cr:"{n}: ₹{a} उधार जोड़ा{d}। कुल बकाया ₹{t}।",pay:"{n}: ₹{a} जमा हुए{d}। कुल बकाया ₹{t}।",tot:"{n} का कुल बकाया ₹{t} है।",ask:"कौन सा: {opts}?",fix:"ठीक किया: {n} के ₹{a}। कुल बकाया ₹{t}।",day:"आज कुल ₹{a} उधार गया।",all:"कुल बकाया ₹{a}, {c} ग्राहकों पर।",unk:"माफ़ कीजिए, समझ नहीं आया। नाम, रकम और उधार या जमा बोलिए।",tip:"{p} बेचने के टिप्स: इसे काउंटर के पास नज़र के सामने रखें, छोटे पैक या कॉम्बो दें, नियमित ग्राहकों को नाम लेकर बताएं, और हर हफ़्ते धीमा स्टॉक जाँचें।",rem:"नमस्ते {n}! दुकान की ओर से एक विनम्र याद: ₹{t} बाकी हैं। जब सुविधा हो तब दे दीजिए। धन्यवाद!"},
+kn:{ai:"ನಮಸ್ಕಾರ! ನಾನು ನಿಮ್ಮ ಖಾತಾ ಪುಸ್ತಕದ AI ಧ್ವನಿ ಸಹಾಯಕ. ಎಂಟ್ರಿ ಹೇಳಿ ಅಥವಾ ಬಾಕಿ ಕೇಳಿ.",cr:"{n}: ₹{a} ಸಾಲ ಸೇರಿಸಲಾಗಿದೆ{d}. ಒಟ್ಟು ಬಾಕಿ ₹{t}.",pay:"{n}: ₹{a} ಪಾವತಿ ಬಂದಿದೆ{d}. ಒಟ್ಟು ಬಾಕಿ ₹{t}.",tot:"{n} ಅವರ ಒಟ್ಟು ಬಾಕಿ ₹{t}.",ask:"ಯಾವುದು: {opts}?",fix:"ಸರಿಪಡಿಸಲಾಗಿದೆ: {n}, ₹{a}. ಒಟ್ಟು ಬಾಕಿ ₹{t}.",day:"ಇಂದು ₹{a} ಸಾಲ ನೀಡಲಾಗಿದೆ.",all:"ಒಟ್ಟು ಬಾಕಿ ₹{a}, {c} ಗ್ರಾಹಕರು.",unk:"ಕ್ಷಮಿಸಿ, ಅರ್ಥವಾಗಲಿಲ್ಲ. ಹೆಸರು, ಮೊತ್ತ ಮತ್ತು ಸಾಲ ಅಥವಾ ಪಾವತಿ ಹೇಳಿ.",tip:"{p} ಮಾರಾಟ ಸಲಹೆಗಳು: ಕೌಂಟರ್ ಬಳಿ ಕಣ್ಣಿಗೆ ಕಾಣುವಂತೆ ಇಡಿ, ಸಣ್ಣ ಪ್ಯಾಕ್ ಅಥವಾ ಕಾಂಬೊ ನೀಡಿ, ನಿಯಮಿತ ಗ್ರಾಹಕರಿಗೆ ಹೇಳಿ, ವಾರಕ್ಕೊಮ್ಮೆ ಸ್ಟಾಕ್ ಪರಿಶೀಲಿಸಿ."},
+ta:{ai:"வணக்கம்! நான் உங்கள் கணக்கு புத்தகத்தின் AI குரல் உதவியாளர். பதிவை சொல்லுங்கள் அல்லது பாக்கியை கேளுங்கள்.",cr:"{n}: ₹{a} கடன் சேர்க்கப்பட்டது{d}. மொத்த பாக்கி ₹{t}.",pay:"{n}: ₹{a} பணம் பெறப்பட்டது{d}. மொத்த பாக்கி ₹{t}.",tot:"{n} மொத்த பாக்கி ₹{t}.",ask:"எது: {opts}?",fix:"திருத்தப்பட்டது: {n}, ₹{a}. மொத்த பாக்கி ₹{t}.",day:"இன்று ₹{a} கடன் கொடுக்கப்பட்டது.",all:"மொத்த பாக்கி ₹{a}, {c} வாடிக்கையாளர்கள்.",unk:"மன்னிக்கவும், புரியவில்லை. பெயர், தொகை, கடன் அல்லது பணம் என்று சொல்லுங்கள்.",tip:"{p} விற்பனை குறிப்புகள்: கவுண்டர் அருகே கண்ணுக்குத் தெரிய வையுங்கள், சிறிய பேக் அல்லது காம்போ கொடுங்கள், வழக்கமான வாடிக்கையாளர்களிடம் சொல்லுங்கள், வாரந்தோறும் இருப்பை சரிபாருங்கள்."},
+te:{ai:"నమస్కారం! నేను మీ ఖాతా పుస్తకం AI వాయిస్ అసిస్టెంట్‌ని. ఎంట్రీ చెప్పండి లేదా బాకీ అడగండి.",cr:"{n}: ₹{a} అప్పు చేర్చబడింది{d}. మొత్తం బాకీ ₹{t}.",pay:"{n}: ₹{a} చెల్లింపు అందింది{d}. మొత్తం బాకీ ₹{t}.",tot:"{n} మొత్తం బాకీ ₹{t}.",ask:"ఏది: {opts}?",fix:"సరిచేయబడింది: {n}, ₹{a}. మొత్తం బాకీ ₹{t}.",day:"ఈ రోజు ₹{a} అప్పు ఇవ్వబడింది.",all:"మొత్తం బాకీ ₹{a}, {c} కస్టమర్లు.",unk:"క్షమించండి, అర్థం కాలేదు. పేరు, మొత్తం, అప్పు లేదా చెల్లింపు చెప్పండి.",tip:"{p} అమ్మకం చిట్కాలు: కౌంటర్ దగ్గర కనిపించేలా ఉంచండి, చిన్న ప్యాక్‌లు లేదా కాంబోలు ఇవ్వండి, రెగ్యులర్ కస్టమర్లకు చెప్పండి, ప్రతి వారం స్టాక్ చూడండి."},
+ml:{ai:"നമസ്കാരം! ഞാൻ നിങ്ങളുടെ കണക്ക് പുസ്തകത്തിന്റെ AI വോയ്സ് അസിസ്റ്റന്റ് ആണ്. എൻട്രി പറയൂ, അല്ലെങ്കിൽ ബാക്കി ചോദിക്കൂ.",cr:"{n}: ₹{a} കടം ചേർത്തു{d}. ആകെ ബാക്കി ₹{t}.",pay:"{n}: ₹{a} പണം ലഭിച്ചു{d}. ആകെ ബാക്കി ₹{t}.",tot:"{n} ആകെ ബാക്കി ₹{t}.",ask:"ഏത്: {opts}?",fix:"തിരുത്തി: {n}, ₹{a}. ആകെ ബാക്കി ₹{t}.",day:"ഇന്ന് ₹{a} കടം നൽകി.",all:"ആകെ ബാക്കി ₹{a}, {c} ഉപഭോക്താക്കൾ.",unk:"ക്ഷമിക്കണം, മനസ്സിലായില്ല. പേര്, തുക, കടം അല്ലെങ്കിൽ പണം പറയൂ.",tip:"{p} വിൽപ്പന നുറുങ്ങുകൾ: കൗണ്ടറിന് അടുത്ത് കാണുന്ന രീതിയിൽ വയ്ക്കുക, ചെറിയ പാക്കോ കോമ്പോയോ നൽകുക, സ്ഥിരം ഉപഭോക്താക്കളോട് പറയുക, ആഴ്ചതോറും സ്റ്റോക്ക് പരിശോധിക്കുക."}};
+const t=(k,l,v={})=>{let s=(T[l.slice(0,2)]||T.en)[k]||T.en[k];for(const x in v)s=s.split('{'+x+'}').join(v[x]);return s};
+const SC=[[/[\u0900-\u097F]/,'hi-IN'],[/[\u0C80-\u0CFF]/,'kn-IN'],[/[\u0B80-\u0BFF]/,'ta-IN'],[/[\u0C00-\u0C7F]/,'te-IN'],[/[\u0D00-\u0D7F]/,'ml-IN'],[/[\u0980-\u09FF]/,'bn-IN'],[/[\u0A80-\u0AFF]/,'gu-IN'],[/[\u0A00-\u0A7F]/,'pa-IN'],[/[\u0B00-\u0B7F]/,'or-IN'],[/[\u0600-\u06FF]/,'ur-IN']];
+const detect=s=>{for(const[r,c]of SC)if(r.test(s))return c;return/\b(ka|ki|ke|ko|kal|parso|aaj|udhaa?r|diya|diye|kitna|baaki|hai|nahi|bech\w*|sau|hazaa?r|teen|chaar|paanch)\b/i.test(s)?'hi-IN':'en-IN'};
+
+/* number words: Hindi 1-99 + English + sau/hazaar/lakh */
+const W={};
+('ek do teen char paanch chhah saat aath nau das gyarah barah terah chaudah pandrah solah satrah atharah unnis bees ikkis baais teis chaubis pachchis chhabbis sattais atthais unatis tees ikatis battis taintis chauntis paintis chhattis saintis adtis untalis chalis iktalis bayalis taintalis chauvalis paintalis chhiyalis saitalis adtalis unchas pachas ikyavan baavan tirpan chauvan pachpan chhappan sattavan atthavan unsath saath iksath basath tirsath chausath painsath chhiyasath sarsath arsath unhattar sattar ikhattar bahattar tihattar chauhattar pachhattar chhihattar satattar athattar unasi assi ikyasi bayasi tirasi chaurasi pachasi chhiyasi sattasi atthasi navasi nabbe ikyanave baanave tiranave chauranave pachanave chhiyanave sattanave atthanave ninyanave').split(' ').forEach((w,i)=>W[w]=i+1);
+Object.assign(W,{chaar:4,panch:5,chhe:6,che:6,chaalis:40,pachaas:50,tin:3,dus:10,bis:20,pachis:25,one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9,ten:10,eleven:11,twelve:12,thirteen:13,fourteen:14,fifteen:15,sixteen:16,seventeen:17,eighteen:18,nineteen:19,twenty:20,thirty:30,forty:40,fifty:50,sixty:60,seventy:70,eighty:80,ninety:90});
+const M={sau:100,hundred:100,hazaar:1000,hazar:1000,thousand:1000,lakh:100000};
+function amts(s){
+ const tk=s.toLowerCase().replace(/(\d),(?=\d{3})/g,'$1').match(/\d+(?:\.\d+)?|[a-z]+/g)||[],out=[];
+ let tot=0,cur=0,run=false,prev=0;
+ const fl=()=>{if(run)out.push(tot+cur);tot=cur=prev=0;run=false};
+ for(const w of tk){
+  if(/^\d/.test(w)){fl();out.push(+w)}
+  else if(w in M){if(M[w]>=1000){tot+=(cur||1)*M[w];cur=0}else cur=(cur||1)*100;run=true;prev=0}
+  else if(w in W){const v=W[w];if(run&&prev>=1&&prev<10&&v>=20&&v%10===0&&cur<100)cur=prev*100+v;else cur+=v;prev=v;run=true}
+  else fl()}
+ fl();return out}
+
+/* state, crypto, storage */
+const S={user:null,key:null,custs:[],last:null,pend:null,on:false,sp:false,rec:null};
+const b64=u=>btoa(String.fromCharCode(...new Uint8Array(u))),ub=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+async function mkKey(pin,salt){const k=await crypto.subtle.importKey('raw',enc.encode(pin),'PBKDF2',false,['deriveKey']);return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:100000,hash:'SHA-256'},k,{name:'AES-GCM',length:256},false,['encrypt','decrypt'])}
+async function save(){if(!S.key)return;const iv=crypto.getRandomValues(new Uint8Array(12)),ct=await crypto.subtle.encrypt({name:'AES-GCM',iv},S.key,enc.encode(JSON.stringify(S.custs)));LS('vk_d_'+S.user,JSON.stringify({iv:b64(iv),ct:b64(ct)}))}
+const ds=o=>{const d=new Date(Date.now()-o*864e5);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const E=(a,ty,o=0)=>({id:Math.random(),a,t:ty,d:ds(o),ts:Date.now()-o*864e5});
+const seed=()=>[{n:'Ramesh Sharma',al:['रमेश','रमेश शर्मा'],e:[E(340,'c',3)],opt:true},{n:'Ramesh Kumar',al:['रमेश','रमेश कुमार'],e:[E(150,'c',2)],opt:false},{n:'Sita Devi',al:['सीता'],e:[E(600,'c',5),E(100,'p',1)],opt:true},{n:'Mohan Lal',al:['मोहन'],e:[E(220,'c',1)],opt:false}];
+const bal=c=>c.e.reduce((a,x)=>a+(x.t==='c'?x.a:-x.a),0);
+const esc=s=>String(s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+
+/* login / logout */
+$('#lf').onsubmit=async e=>{e.preventDefault();
+ const u=$('#u').value.trim().toLowerCase(),p=$('#p').value;
+ if(!u||p.length<4)return $('#msg').textContent='Enter a name and a PIN with at least 4 digits.';
+ let users={};try{users=JSON.parse(LS('vk_users')||'{}')}catch(x){}
+ try{
+  if(users[u]){S.key=await mkKey(p,ub(users[u]));const d=JSON.parse(LS('vk_d_'+u));S.custs=JSON.parse(dec.decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:ub(d.iv)},S.key,ub(d.ct))))}
+  else{const salt=crypto.getRandomValues(new Uint8Array(16));S.key=await mkKey(p,salt);users[u]=b64(salt);S.custs=seed();LS('vk_users',JSON.stringify(users))}
+ }catch(x){S.key=null;return $('#msg').textContent='Wrong PIN. Check it and try again.'}
+ S.user=u;$('#msg').textContent='';$('#p').value='';await save();
+ $('#login').hidden=true;$('#app').hidden=false;$('#out').hidden=false;$('#who').hidden=false;$('#who').textContent='👤 '+u;
+ $('#log').innerHTML='';render();
+ const sel=$('#lang').value,l=sel==='auto'?(navigator.language||'en-IN'):sel;
+ say(t('ai',l),l)};
+function logout(){stopRec();speechSynthesis.cancel();Object.assign(S,{user:null,key:null,custs:[],last:null,pend:null});
+ $('#app').hidden=true;$('#login').hidden=false;$('#out').hidden=true;$('#who').hidden=true;$('#log').innerHTML=''}
+$('#out').onclick=logout;
+$('#erase').onclick=e=>{const b=e.target;if(b.dataset.s){try{const us=JSON.parse(LS('vk_users')||'{}');delete us[S.user];LS('vk_users',JSON.stringify(us));localStorage.removeItem('vk_d_'+S.user)}catch(x){}b.dataset.s='';b.textContent='Erase all my data';logout()}else{b.dataset.s=1;b.textContent='Tap again to erase everything and log out'}};
+
+/* rendering */
+function render(){
+ const cs=[...S.custs].sort((a,b)=>bal(b)-bal(a)),tot=cs.reduce((a,c)=>a+Math.max(0,bal(c)),0),mx=Math.max(1,...cs.map(bal));
+ $('#tot').textContent='₹'+tot.toLocaleString('en-IN');$('#cnt').textContent=cs.filter(c=>bal(c)>0).length;
+ $('#list').innerHTML=cs.map(c=>{const i=S.custs.indexOf(c);return`<div class="row"><div class="rn"><b>${esc(c.n)}</b><div class="bar"><i style="width:${Math.max(0,bal(c))/mx*100}%"></i></div></div><div class="amt">₹${bal(c).toLocaleString('en-IN')}</div><div><label><input type="checkbox" data-i="${i}" ${c.opt?'checked':''}> opted in</label> <button class="sm" data-r="${i}" ${c.opt&&bal(c)>0?'':'disabled'}>Remind</button></div></div>`}).join('');
+ $('#recent').innerHTML=S.custs.flatMap(c=>c.e.map(e=>({...e,n:c.n}))).sort((a,b)=>b.ts-a.ts).slice(0,6).map(e=>`<li><span class="${e.t}">${e.t==='c'?'Credit':'Paid'}</span> ${esc(e.n)} · ₹${e.a} · ${e.d}</li>`).join('')||'<li class="mut">No entries yet. Say your first one.</li>'}
+$('#list').onchange=e=>{const i=e.target.dataset.i;if(i!==undefined){S.custs[i].opt=e.target.checked;save();render()}};
+$('#list').onclick=e=>{const i=e.target.dataset.r;if(i===undefined)return;const c=S.custs[i],l=($('#lang').value==='auto'?navigator.language:$('#lang').value)||'en-IN',m=t('rem',l,{n:c.n,t:bal(c)});bubble('a',m);try{navigator.clipboard.writeText(m)}catch(x){}};
+function bubble(w,txt,ms){const d=document.createElement('div');d.className='b '+w;d.textContent=txt;const i=document.createElement('i');i.textContent=w==='u'?'You':'AI assistant'+(ms!==undefined?' · '+ms+' ms':'');d.prepend(i);$('#log').append(d);$('#log').scrollTop=1e9}
+
+/* voice out */
+function speak(txt,lang){
+ if(!$('#tts').checked||!('speechSynthesis'in window))return;
+ speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(txt),vs=speechSynthesis.getVoices();u.lang=lang;
+ const v=vs.find(v=>v.lang.replace('_','-')===lang)||vs.find(v=>v.lang.startsWith(lang.slice(0,2)));if(v)u.voice=v;
+ S.sp=true;if(S.on&&S.rec){try{S.rec.onend=null;S.rec.abort()}catch(x){}}
+ u.onend=u.onerror=()=>{S.sp=false;if(S.on)startRec()};speechSynthesis.speak(u)}
+function say(r,lang,t0){bubble('a',r,t0?Math.round(performance.now()-t0):undefined);speak(r,lang)}
+
+/* voice in (streaming Web Speech API) */
+function startRec(){
+ const R=window.SpeechRecognition||window.webkitSpeechRecognition;
+ if(!R){S.on=false;ui();return bubble('a','Voice input needs Chrome, Edge or Safari. You can still type below.')}
+ if(S.rec){try{S.rec.onend=null;S.rec.abort()}catch(x){}}
+ const sel=$('#lang').value,r=S.rec=new R();r.lang=sel==='auto'?(navigator.language||'en-IN'):sel;r.continuous=true;r.interimResults=true;
+ r.onresult=e=>{let im='';for(let i=e.resultIndex;i<e.results.length;i++){const x=e.results[i];if(x.isFinal){$('#interim').textContent='';handle(x[0].transcript)}else im+=x[0].transcript}if(im)$('#interim').textContent=im};
+ r.onend=()=>{if(S.on&&!S.sp)try{startRec()}catch(x){}};
+ r.onerror=e=>{if(e.error==='not-allowed'||e.error==='service-not-allowed'){S.on=false;ui();bubble('a','Microphone is blocked. Allow it in your browser, or type instead.')}};
+ try{r.start()}catch(x){}}
+function stopRec(){S.on=false;if(S.rec){try{S.rec.onend=null;S.rec.abort()}catch(x){}}ui()}
+function ui(){$('#mic').classList.toggle('on',S.on);$('#st').textContent=S.on?'Listening… speak your entry':'Tap to talk';$('#interim').textContent=''}
+$('#mic').onclick=()=>{if(S.on)return stopRec();S.on=true;ui();startRec()};
+
+/* brain */
+const KW_CR=/udhaa?r|udhaari|credit|baaki|bakaya|owes|उधार|ಸಾಲ|கடன்|అప్పు|കടം/,KW_PAY=/diya|diye|paid|pay|jama|wapas|received|mila|mile|returned|settle|जमा|दिया|दिए|ಪಾವತಿ|கொடுத்|చెల్లి|ലഭി/;
+function find(s){
+ const m=S.custs.filter(c=>[c.n.split(' ')[0].toLowerCase(),...c.al].some(n=>n&&new RegExp('(^|[^a-z])'+n.toLowerCase()+'($|[^a-z])').test(s)));
+ const full=m.filter(c=>[c.n.toLowerCase(),...c.al].some(n=>n.includes(' ')&&s.includes(n)));if(full.length)return full;
+ const sur=m.filter(c=>c.n.toLowerCase().split(' ').slice(1).some(w=>w.length>2&&s.includes(w)));return sur.length?sur:m}
+function newName(txt){
+ const STOP=/^(aaj|kal|parso|total|mera|sab|sabka|today|yesterday|aur|and|nahi|no|udhaar|credit|the|add)$/i,re=/([A-Za-z\u0900-\u0D7F]{2,})\s+(?:ka|ki|ke|ko|ne|from|owes|has|took|paid)(?![a-z])/gi;let m;
+ while(m=re.exec(txt))if(!STOP.test(m[1])&&!(m[1].toLowerCase()in W)&&!(m[1].toLowerCase()in M))return m[1][0].toUpperCase()+m[1].slice(1);
+ m=txt.match(/(?:for|to)\s+([A-Za-z]{3,})/i);return m&&!STOP.test(m[1])?m[1][0].toUpperCase()+m[1].slice(1):null}
+const ask=(o,l)=>t('ask',l,{opts:o.map(c=>c.n).join(' / ')});
+function apply(c,items,l){
+ if(!S.custs.includes(c))S.custs.push(c);
+ const out=items.map(i=>{const e={id:Math.random(),a:i.a,t:i.t,d:ds(i.o),ts:Date.now()};c.e.push(e);S.last={c,e};
+  return t(i.t==='c'?'cr':'pay',l,{n:c.n,a:i.a,t:bal(c),d:i.o?' ('+new Date(Date.now()-i.o*864e5).toLocaleDateString(l,{day:'numeric',month:'short'})+')':''})});
+ save();render();return out.join(' ')}
+function brain(txt,l){
+ const s=txt.toLowerCase().replace(/(\d),(?=\d{3})/g,'$1'),am=amts(s);
+ if(S.pend){const o=S.pend.opts.filter(c=>c.n.toLowerCase().split(' ').slice(1).some(w=>s.includes(w)));
+  if(o.length===1){const f=S.pend.run;S.pend=null;return f(o[0])}
+  if(!am.length&&S.pend.tries++<1)return ask(S.pend.opts,l);S.pend=null}
+ if(am.length&&S.last&&/^\s*(nahi|nahin|no|nope|galat|sorry|actually|wrong|नहीं|नही)(?![a-z])/.test(s)){
+  S.last.e.a=am[0];save();render();return t('fix',l,{n:S.last.c.n,a:am[0],t:bal(S.last.c)})}
+ if(!am.length&&/sell|bech|बेच|margin|profit|discount|offer|promote|ಮಾರ|விற்|అమ్మ|വിൽ/.test(s)){
+  const m=txt.match(/(?:sell|bech\w*)\s+(?:my\s+|this\s+|the\s+)?([a-z ]{2,24})/i);return t('tip',l,{p:m?m[1].trim():l.startsWith('en')?'your product':''})}
+ if(!am.length&&/kitna|total|balance|how much|owe|kaun|who |sabka|baaki|pending|due|कितना|कुल|बकाया|ಎಷ್ಟು|ಬಾಕಿ|எவ்வளவு|பாக்கி|ఎంత|బాకీ|എത്ര|ബാക്കി|\?/.test(s)){
+  if(/aaj|today|आज|ಇಂದು|இன்று|ఈ రోజు|ഇന്ന്/.test(s)&&/udh|credit|gaya|given|उधार/.test(s))
+   return t('day',l,{a:S.custs.flatMap(c=>c.e).filter(e=>e.t==='c'&&e.d===ds(0)).reduce((a,e)=>a+e.a,0)});
+  const m=find(s);
+  if(m.length===1)return t('tot',l,{n:m[0].n,t:bal(m[0])});
+  if(m.length>1){S.pend={opts:m,tries:0,run:c=>t('tot',l,{n:c.n,t:bal(c)})};return ask(m,l)}
+  return t('all',l,{a:S.custs.reduce((a,c)=>a+Math.max(0,bal(c)),0),c:S.custs.filter(c=>bal(c)>0).length})}
+ const items=[];
+ for(const c of s.split(/[,;।]|\baur\b|\band\b|\bphir\b|\bthen\b/)){
+  const a=amts(c)[0];if(!a)continue;
+  const ty=KW_CR.test(c)?'c':KW_PAY.test(c)?'p':null;if(!ty)continue;
+  items.push({a,t:ty,o:/parso|day before|परसों/.test(c)?2:/kal|yesterday|कल/.test(c)?1:0})}
+ if(!items.length)return t('unk',l);
+ let m=find(s);
+ if(!m.length){const nm=newName(txt);if(!nm)return t('unk',l);m=[{n:nm,al:[],e:[],opt:false}]}
+ if(m.length>1){S.pend={opts:m,tries:0,run:c=>apply(c,items,l)};return ask(m,l)}
+ return apply(m[0],items,l)}
+function handle(raw){
+ const txt=raw.trim();if(!txt||!S.user)return;const t0=performance.now();bubble('u',txt);
+ const sel=$('#lang').value,d=detect(txt),nl=SC.some(([r])=>r.test(txt)),l=sel==='auto'?d:(nl?d:sel);
+ say(brain(txt,l),l,t0)}
+$('#f').onsubmit=e=>{e.preventDefault();const v=$('#q').value;$('#q').value='';handle(v)};
+$('#chips').innerHTML=['Ramesh ka 340 udhaar, kal 200 diya tha','Kumar','Nahi, 430','Sita ka teen sau chaalis udhaar','Mohan ka total?','Aaj kitna udhaar gaya?','सीता का कुल कितना?','ಎಷ್ಟು ಬಾಕಿ?','How to sell biscuits?'].map(c=>`<button type="button" class="chip">${c}</button>`).join('');
+$('#chips').onclick=e=>{if(e.target.classList.contains('chip'))handle(e.target.textContent)};
+</script>
+</body>
+</html>
