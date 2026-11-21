@@ -1,16 +1,16 @@
 # Voice Khata – बोलो, खाता लिखो
 
-A voice-first udhaar (credit) ledger for kirana stores. The shopkeeper speaks or types an entry mid-sale, and the khata updates itself and answers back by voice, in the same language.
+An AI-powered digital accounting system and voice-first udhaar (credit) ledger for kirana stores. The shopkeeper speaks or types an entry mid-sale, and the khata updates itself and answers back by voice, in the same language.
 
 > Built for PS2 · Voice Khata for kirana stores (Innovation Challenge by Gnani.ai and HackBriven).
 
 ## Run it
 
-No build step. Open `index.html` in Chrome, Edge or Safari (HTTPS or `localhost` is needed for the microphone and encryption).
+No build step. Open `Voice Khata.html` in Chrome, Edge or Safari (HTTPS or `localhost` is needed for the microphone and encryption).
 
 ```bash
-git clone <your-repo-url> && cd voice-khata
-python3 -m http.server 8000      # then open http://localhost:8000
+git clone https://github.com/gowdavikitha886-hue/voice-khata.git && cd voice-khata
+python3 -m http.server 8000      # then open http://localhost:8000/Voice%20Khata.html
 ```
 
 1. Type any shop name and a PIN of 4+ digits, then press **Log in / Create khata**. A new name creates an encrypted khata with synthetic sample customers.
@@ -68,7 +68,7 @@ The browser speech APIs are the default so the prototype runs anywhere. To upgra
 ## Limitations
 
 - Speech recognition quality depends on the browser and its language pack. Number words are parsed in Latin script (Hindi-in-Roman and English); other scripts work best when the recogniser returns digits.
-- Reply templates exist for six languages. Add more by extending the `T` object in `index.html`.
+- Reply templates exist for six languages. Add more by extending the `T` object in `Voice Khata.html`.
 
 ## Submission checklist
 
